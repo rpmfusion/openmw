@@ -1,6 +1,6 @@
-diff -Naur openmw-0.26.0.orig/components/files/linuxpath.cpp openmw-0.26.0/components/files/linuxpath.cpp
---- openmw-0.26.0.orig/components/files/linuxpath.cpp	2013-09-06 03:49:35.000000000 -0500
-+++ openmw-0.26.0/components/files/linuxpath.cpp	2013-09-15 08:00:41.674024032 -0500
+diff -Naur openmw-0.27.0.orig/components/files/linuxpath.cpp openmw-0.26.0/components/files/linuxpath.cpp
+--- openmw-0.27.0.orig/components/files/linuxpath.cpp	2013-09-06 03:49:35.000000000 -0500
++++ openmw-0.27.0/components/files/linuxpath.cpp	2013-09-15 08:00:41.674024032 -0500
 @@ -76,7 +76,7 @@
  
  boost::filesystem::path LinuxPath::getGlobalDataPath() const
