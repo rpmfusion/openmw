@@ -1,16 +1,14 @@
 Name:           openmw
-Version:        0.26.0
-Release:        6%{?dist}
+Version:        0.27.0
+Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
 URL:            https://openmw.org/
 Source0:        https://openmw.googlecode.com/files/%{name}-%{version}-source.tar.gz
 
-# Unbundle tinyxml
-Patch0:         openmw-bund_libs.patch
 # Fix data path from /usr/share/games/openmw to /usr/share/openmw/data
-Patch1:         openmw-datapath.patch
+Patch0:         openmw-datapath.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel       
@@ -49,8 +47,7 @@ to play OpenMW.
 
 %prep
 %setup -q -c %{name}-%{version}
-%patch0 -p1 -b .bund_libs
-%patch1 -p1 -b .datapath
+%patch0 -p1 -b .datapath
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.*
@@ -68,10 +65,9 @@ rm -rf build && mkdir build && pushd build
 
 make %{?_smp_mflags}
 
-
 %install
 pushd build
-%make_install
+%make_install 
 popd
 desktop-file-validate %{buildroot}/%{_datadir}/applications/opencs.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw.desktop
@@ -82,8 +78,7 @@ mv %{buildroot}%{_datadir}/licenses/openmw/* _tmpdoc/
 rm -rf %{buildroot}%{_datadir}/licenses
 
 # Create data directory
-mkdir -p %{buildroot}%{_datadir}/%{name}/data
-
+mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 %files
 %doc GPL3.txt readme.txt _tmpdoc/*
@@ -101,6 +96,10 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/data
 
 
 %changelog
+* Fri Nov 29 2013 Alexandre Moine <nobrakal@fedoraproject.org> 0.27.0-1
+- Update to the new 0.27.0
+- Retire patch to unbundle tinyxml, this was solved in upstream.
+
 * Wed Sep 18 2013 Alexandre Moine <nobrakal@fedoraproject.org> 0.26.0-6
 - Change Licenses Tag
 
