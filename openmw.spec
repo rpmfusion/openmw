@@ -1,13 +1,11 @@
 Name:           openmw
 Version:        0.29.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
 URL:            https://openmw.org/
-
-# The sources are disponible here: https://github.com/zinnschlag/openmw/archive/openmw-0.29.0.tar.gz, but Github force the download of openmw-openmw-0.29.0.tar.gz instead of openmw-0.29.0.tar.gz. So I have to specify only the file's name.
-Source0:        %{name}-%{name}-0.29.0.tar.gz
+Source0:        https://github.com/zinnschlag/openmw/archive/openmw-0.29.0.tar.gz
 
 # Fix data path from /usr/share/games/openmw to /usr/share/openmw/data
 Patch0:         openmw-datapath.patch
@@ -98,6 +96,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Fri Mar 14 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.29.0-2
+- Fix the issue with the direct link
+
 * Thu Mar 13 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.29.0-1
 - Update to 0.29.0.
 - The googlecode repo seems not supported anymore, the sources are now downloaded from github.
