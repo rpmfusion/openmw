@@ -1,6 +1,6 @@
 Name:           openmw
 Version:        0.29.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
