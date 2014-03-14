@@ -1,11 +1,11 @@
 Name:           openmw
-Version:        0.27.0
-Release:        1%{?dist}
+Version:        0.29.0
+Release:        2%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
 URL:            https://openmw.org/
-Source0:        https://openmw.googlecode.com/files/%{name}-%{version}-source.tar.gz
+Source0:        https://github.com/zinnschlag/openmw/archive/openmw-0.29.0.tar.gz
 
 # Fix data path from /usr/share/games/openmw to /usr/share/openmw/data
 Patch0:         openmw-datapath.patch
@@ -46,8 +46,8 @@ to play OpenMW.
 
 
 %prep
-%setup -q -c %{name}-%{version}
-%patch0 -p1 -b .datapath
+%setup -q -n %{name}-%{name}-%{version}
+%patch0 -p1 
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.*
@@ -96,6 +96,19 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Fri Mar 14 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.29.0-2
+- Fix the issue with the direct link
+
+* Thu Mar 13 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.29.0-1
+- Update to 0.29.0.
+- The googlecode repo seems not supported anymore, the sources are now downloaded from github.
+- Github renames openmw-0.29.0.tar.gz into openmw-openmw-0.29.0.tar.gz, and I can't pick a direct link. So the Source0 is just the file's name, and I added a comment to specify the good URL.
+- The issues with the desktop files were fixed by upstream.
+
+* Tue Jan 14 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.28.0-1
+- Update to the new 0.28.0
+- Add two patch to fix desktop files.
+
 * Fri Nov 29 2013 Alexandre Moine <nobrakal@fedoraproject.org> 0.27.0-1
 - Update to the new 0.27.0
 - Retire patch to unbundle tinyxml, this was solved in upstream.
