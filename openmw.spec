@@ -1,12 +1,12 @@
 Name:           openmw
-Version:        0.30.0
+Version:        0.31.0
 Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
-URL:            https://openmw.org/
-# Github renames openmw-0.30.0.tar.gz into openmw-openmw-0.30.0.tar.gz. So I have to specify "by hand" the name's file. If you want the sources, follow https://github.com/OpenMW/openmw/archive/openmw-0.30.0.tar.gz
-Source0:        %{name}-%{name}-%{version}.tar.gz
+URL:            https://openmw.org
+# If you use a classic internet browser, Github renames the archive (openmw-0.31.0.tar.gz) into openmw-openmw-0.31.0.tar.gz. So, If you want the sources, use for example wget.
+Source0:        https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
 
 # Fix data path from /usr/share/games/openmw to /usr/share/openmw/data
 Patch0:         openmw-datapath.patch
@@ -82,7 +82,7 @@ rm -rf %{buildroot}%{_datadir}/licenses
 mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 %files
-%doc GPL3.txt readme.txt _tmpdoc/*
+%doc docs/license/GPL3.txt readme.txt _tmpdoc/*
 %{_bindir}/esmtool
 %{_bindir}/mwiniimport
 %{_bindir}/omwlauncher
@@ -97,6 +97,10 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Sun Jul 20 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.31.0-1
+- Update to 0.31.0
+- Finally fix the issue with the link.
+
 * Thu May 29 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.30.0-1
 - Update to 0.30.0
 - Again issue with the source link. Github renames openmw-0.30.0.tar.gz into openmw-openmw-0.30.0.tar.gz, and I can't pick a direct link. So the Source0 is just the file's name, and I added a comment to specify the good URL.
