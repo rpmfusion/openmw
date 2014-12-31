@@ -1,6 +1,6 @@
 Name:           openmw
 Version:        0.31.0
-Release:        1%{?dist}
+Release:        5%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -60,7 +60,8 @@ rm -rf build && mkdir build && pushd build
        -DBINDIR=%{_bindir} \
        -DDATAROOTDIR:PATH=%{_datadir} \
        -DICONDIR=%{_datadir}/pixmaps \
-       -DMORROWIND_RESOURCE_FILES=%{_datadir}/%{name}/resources \
+       -DOPENMW_RESOURCE_FILES=%{_datadir}/%{name}/resources \
+       -DMORROWIND_DATA_FILES=%{_datadir}/%{name}/data \
        -DUSE_SYSTEM_TINYXML=TRUE \
        ../
 
@@ -97,6 +98,18 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Wed Dec 31 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.31.0-1
+- Add cmake arguments for the location of ressources and data directory.
+
+* Mon Oct 20 2014 Sérgio Basto <sergio@serjux.com> - 0.31.0-4
+- Rebuilt for FFmpeg 2.4.3
+
+* Fri Sep 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 0.31.0-3
+- Rebuilt for FFmpeg 2.4.x
+
+* Thu Aug 07 2014 Sérgio Basto <sergio@serjux.com> - 0.31.0-2
+- Rebuilt for ffmpeg-2.3
+
 * Sun Jul 20 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.31.0-1
 - Update to 0.31.0
 - Finally fix the issue with the link.
