@@ -1,15 +1,15 @@
 Name:           openmw
-Version:        0.31.0
-Release:        5%{?dist}
+Version:        0.34.0
+Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
 URL:            https://openmw.org
-# If you use a classic internet browser, Github renames the archive (openmw-0.31.0.tar.gz) into openmw-openmw-0.31.0.tar.gz. So, If you want the sources, use for example wget.
+# If you use a classic internet browser, Github renames the archive (openmw-%%{version}.tar.gz) into openmw-openmw-%%{version}.tar.gz. So, If you want the sources, use for example wget.
 Source0:        https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
 
 # Fix data path from /usr/share/games/openmw to /usr/share/openmw/data
-Patch0:         openmw-datapath.patch
+# Patch0:         openmw-datapath.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel       
@@ -19,7 +19,8 @@ BuildRequires:  libblkid-devel
 BuildRequires:  libmpg123-devel
 BuildRequires:  libsndfile-devel
 BuildRequires:  libXt-devel
-BuildRequires:  mygui-devel
+# Recent version of MyGui required in 0.34.0
+BuildRequires:  mygui-devel >= 3.2.1
 BuildRequires:  ogre-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  openexr-devel
@@ -47,8 +48,7 @@ to play OpenMW.
 
 
 %prep
-%setup -qn %{name}-%{name}-%{version}
-%patch0 -p1 
+%setup -qn %{name}-%{name}-%{version} 
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.*
@@ -57,15 +57,19 @@ rm -f extern/oics/tiny*.*
 %build
 rm -rf build && mkdir build && pushd build
 %cmake -DDATADIR:PATH=%{_datadir}/%{name} \
+       -DLIBDIR=%{_libdir} \
        -DBINDIR=%{_bindir} \
        -DDATAROOTDIR:PATH=%{_datadir} \
+       -DGLOBAL_DATA_PATH:PATH=%{_datadir} \
        -DICONDIR=%{_datadir}/pixmaps \
+       -DMORROWIND_RESOURCE_FILES=%{_datadir}/%{name}/resources \
        -DOPENMW_RESOURCE_FILES=%{_datadir}/%{name}/resources \
        -DMORROWIND_DATA_FILES=%{_datadir}/%{name}/data \
        -DUSE_SYSTEM_TINYXML=TRUE \
        ../
 
 make %{?_smp_mflags}
+popd
 
 %install
 pushd build
@@ -89,6 +93,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 %{_bindir}/omwlauncher
 %{_bindir}/opencs
 %{_bindir}/openmw
+%{_bindir}/bsatool
+%{_bindir}/openmw-wizard
+%{_libdir}/Plugin_MyGUI_OpenMW_Resources.so
 %{_datadir}/applications/opencs.desktop
 %{_datadir}/applications/openmw.desktop
 %{_datadir}/%{name}/
@@ -98,14 +105,11 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
-* Wed Dec 31 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.31.0-1
-- Add cmake arguments for the location of ressources and data directory.
-
-* Mon Oct 20 2014 Sérgio Basto <sergio@serjux.com> - 0.31.0-4
-- Rebuilt for FFmpeg 2.4.3
-
-* Fri Sep 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 0.31.0-3
-- Rebuilt for FFmpeg 2.4.x
+* Wed Dec 31 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.34.0-1
+- Update directly to 0.34.0 due to the new mygui just released in fedora (see BGZ #1145811)
+- Remove openmw-datapath.patch, it set a variable in /components/files/linuxpath.cpp now in cmake
+- Add new executables: bsatool and openmw-wizard
+- Add new libraries: Plugin_MyGUI_OpenMW_Resources.so
 
 * Thu Aug 07 2014 Sérgio Basto <sergio@serjux.com> - 0.31.0-2
 - Rebuilt for ffmpeg-2.3
