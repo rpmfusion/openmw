@@ -1,5 +1,5 @@
 Name:           openmw
-Version:        0.34.0
+Version:        0.35.0
 Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
@@ -75,7 +75,7 @@ popd
 pushd build
 %make_install 
 popd
-desktop-file-validate %{buildroot}/%{_datadir}/applications/opencs.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw-cs.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw.desktop
 
 # Move license files back so they can be packaged by %%doc
@@ -87,24 +87,29 @@ rm -rf %{buildroot}%{_datadir}/licenses
 mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 %files
-%doc docs/license/GPL3.txt readme.txt _tmpdoc/*
+%doc docs/license/GPL3.txt README.md _tmpdoc/*
+%{_bindir}/%{name}
+%{_bindir}/%{name}-launcher
+%{_bindir}/%{name}-iniimporter
+%{_bindir}/%{name}-essimporter
+%{_bindir}/%{name}-wizard
+%{_bindir}/%{name}-cs
 %{_bindir}/esmtool
-%{_bindir}/mwiniimport
-%{_bindir}/omwlauncher
-%{_bindir}/opencs
-%{_bindir}/openmw
 %{_bindir}/bsatool
-%{_bindir}/openmw-wizard
 %{_libdir}/Plugin_MyGUI_OpenMW_Resources.so
-%{_datadir}/applications/opencs.desktop
-%{_datadir}/applications/openmw.desktop
 %{_datadir}/%{name}/
-%{_datadir}/pixmaps/opencs.png
+%{_datadir}/applications/%{name}-cs.desktop
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/openmw-cs.png
 %{_datadir}/pixmaps/openmw.png
 %config(noreplace) %{_sysconfdir}/openmw/
 
 
 %changelog
+* Sat Feb 21 2015 Alexandre Moine <nobrakal@fedoraproject.org> 0.35.0-1
+- Update to new upstream.
+- Change binairies name from opencs to openmw-cs
+
 * Wed Dec 31 2014 Alexandre Moine <nobrakal@fedoraproject.org> 0.34.0-1
 - Update directly to 0.34.0 due to the new mygui just released in fedora (see BGZ #1145811)
 - Remove openmw-datapath.patch, it set a variable in /components/files/linuxpath.cpp now in cmake
