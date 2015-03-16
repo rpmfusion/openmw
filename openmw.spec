@@ -1,5 +1,5 @@
 Name:           openmw
-Version:        0.35.0
+Version:        0.35.1
 Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
@@ -106,6 +106,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Mon Mar 16 2015 Alexandre Moine <nobrakal@fedoraproject.org> 0.35.1-1
+- New maintenance update.
+
 * Sat Feb 21 2015 Alexandre Moine <nobrakal@fedoraproject.org> 0.35.0-1
 - Update to new upstream.
 - Change binairies name from opencs to openmw-cs
