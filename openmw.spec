@@ -1,6 +1,6 @@
 Name:           openmw
 Version:        0.36.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -9,8 +9,8 @@ URL:            https://openmw.org
 Source0:        https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
 
-# Use the -fPIC option to build the library
-Patch0:         openmw.use_fpic_flag.patch
+# Use independent code position for the library (see #3614) (equal to the -fPIC flag with gcc)
+Patch0:         openmw.use_position_independent_for_library.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel       
@@ -116,6 +116,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Wed Aug 05 2015 Alexandre Moine <nobrakal@gmail.com> 0.36.1-3
+- Use a more generic option to force independent code position for the library.
+
 * Wed Aug 05 2015 Alexandre Moine <nobrakal@gmail.com> 0.36.1-2
 - Specify the -fPIC flag in the right CMakeLists.txt
 
