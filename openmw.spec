@@ -1,5 +1,5 @@
 Name:           openmw
-Version:        0.36.0
+Version:        0.36.1
 Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
@@ -7,9 +7,10 @@ License:        GPLv3 and MIT and zlib
 URL:            https://openmw.org
 # If you use a classic internet browser, Github renames the archive (openmw-%%{version}.tar.gz) into openmw-openmw-%%{version}.tar.gz. So, If you want the sources, use for example wget.
 Source0:        https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
+Source1:        %{name}.appdata.xml
 
-# Fix data path from /usr/share/games/openmw to /usr/share/openmw/data
-# Patch0:         openmw-datapath.patch
+# Use the -fPIC option to build the library
+Patch0:         openmw.use_fpic_flag.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel       
@@ -30,6 +31,7 @@ BuildRequires:  tinyxml-devel
 BuildRequires:  ffmpeg-devel
 # New requirement as of 0.26.0
 BuildRequires:  unshield-devel
+BuildRequires:  libappstream-glib
 
 # Version in openmw is modified.
 Provides:       bundled(ocis)
@@ -52,6 +54,8 @@ to play OpenMW.
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.*
+
+%patch0
 
 
 %build
@@ -78,6 +82,11 @@ popd
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw-cs.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw.desktop
 
+#Test and install appdata file
+mkdir %{buildroot}%{_datadir}/appdata/
+install -pDm644 %{SOURCE1} %{buildroot}%{_datadir}/appdata/
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+
 # Move license files back so they can be packaged by %%doc
 mkdir _tmpdoc
 mv %{buildroot}%{_datadir}/licenses/openmw/* _tmpdoc/
@@ -102,10 +111,16 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/openmw-cs.png
 %{_datadir}/pixmaps/openmw.png
+%{_datadir}/appdata/%{name}.appdata.xml
 %config(noreplace) %{_sysconfdir}/openmw/
 
 
 %changelog
+* Tue Aug 04 2015 Alexandre Moine <nobrakal@gmail.com> 0.36.1-1
+- New maintenance update.
+- Add appdata file for openmw.
+- Add use of -fPIC flag for the compilation.
+
 * Sat May 30 2015 Alexandre Moine <nobrakal@gmail.com> 0.36.0-1
 - Update to new upstream.
 
