@@ -1,12 +1,12 @@
-diff -ru openmw-openmw-0.36.1.orig/CMakeLists.txt openmw-openmw-0.36.1/CMakeLists.txt
---- CMakeLists.txt	2015-05-31 14:21:21.000000000 +0200
-+++ CMakeLists.txt	2015-08-05 13:47:24.150616896 +0200
-@@ -351,7 +351,7 @@
+diff -ru openmw-openmw-0.36.1.orig/plugins/mygui_resource_plugin/CMakeLists.txt openmw-openmw-0.36.1/plugins/mygui_resource_plugin/CMakeLists.txt
+--- plugins/mygui_resource_plugin/CMakeLists.txt	2015-05-31 14:21:21.000000000 +0200
++++ plugins/mygui_resource_plugin/CMakeLists.txt	2015-08-05 14:39:10.010972034 +0200
+@@ -8,7 +8,7 @@
+     Plugin_MyGUI_OpenMW_Resources
+ )
  
- # CXX Compiler settings
- if (CMAKE_CXX_COMPILER_ID STREQUAL GNU OR CMAKE_CXX_COMPILER_ID STREQUAL Clang)
--    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -Wno-reorder -std=c++98 -pedantic -Wno-long-long")
-+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -Wno-reorder -std=c++98 -pedantic -Wno-long-long -fPIC")
+-add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
++add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL -fPIC")
  
-     if (CMAKE_CXX_COMPILER_ID STREQUAL Clang AND NOT APPLE)
-         execute_process(COMMAND ${CMAKE_C_COMPILER} --version OUTPUT_VARIABLE CLANG_VERSION)
+ add_library(${MYGUI_RESOURCE_PLUGIN_LIBRARY}
+     SHARED
