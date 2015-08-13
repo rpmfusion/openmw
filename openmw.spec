@@ -1,6 +1,6 @@
 Name:           openmw
 Version:        0.36.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -116,6 +116,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Thu Aug 13 2015 Alexandre Moine <nobrakal@gmail.com> 0.36.1-4
+- Update the use of -fPIC
+
 * Wed Aug 05 2015 Alexandre Moine <nobrakal@gmail.com> 0.36.1-3
 - Use a more generic option to force independent code position for the library.
 
