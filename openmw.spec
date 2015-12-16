@@ -1,16 +1,22 @@
 Name:           openmw
-Version:        0.36.1
-Release:        4%{?dist}
+Version:        0.37.0
+Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
 URL:            https://openmw.org
 # If you use a classic internet browser, Github renames the archive (openmw-%%{version}.tar.gz) into openmw-openmw-%%{version}.tar.gz. So, If you want the sources, use for example wget.
 Source0:        https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
-Source1:        %{name}.appdata.xml
+#Source1:        %{name}.appdata.xml
 
-# Use independent code position for the library (see #3614) (equal to the -fPIC flag with gcc)
-Patch0:         openmw.use_position_independent_for_library.patch
+# Pass path to ffmpeg headers in CFLAGS
+Patch0:         openmw.fix-ffmpeg-includedir.patch
+
+# Unbundle dejavu-lgc-sans-mono-fonts
+Patch1:         openmw.unbundle-dejavu-font.patch
+
+# Unbundle tango icons
+Patch2:         openmw.undundle-tango-icons.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel       
@@ -22,7 +28,7 @@ BuildRequires:  libsndfile-devel
 BuildRequires:  libXt-devel
 # Recent version of MyGui required in 0.34.0
 BuildRequires:  mygui-devel >= 3.2.1
-BuildRequires:  ogre-devel
+# BuildRequires:  ogre-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  openexr-devel
 BuildRequires:  qt-devel
@@ -32,12 +38,21 @@ BuildRequires:  ffmpeg-devel
 # New requirement as of 0.26.0
 BuildRequires:  unshield-devel
 BuildRequires:  libappstream-glib
+# New requirement as of 0.37.0
+BuildRequires:  OpenSceneGraph-devel OpenSceneGraph-qt-devel
+BuildRequires:  ffmpeg-devel
+BuildRequires:  gtest-devel
+BuildRequires:  tango-icon-theme
+BuildRequires:  dejavu-lgc-sans-mono-fonts
+
+Requires:       dejavu-lgc-sans-mono-fonts
+Requires:       tango-icon-theme
 
 # Version in openmw is modified.
 Provides:       bundled(ocis)
 # Shiny is designed to be copied in rather than a separate library.
 # https://github.com/scrawl/shiny
-Provides:       bundled(shiny) = 0.2
+# Provides:       bundled(shiny) = 0.2
 
 
 %description
@@ -55,8 +70,17 @@ to play OpenMW.
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.*
 
-%patch0
+# Pass path to ffmpeg headers in CFLAGS
+%patch0 -p1 -b .ffmpeg
 
+# Unbundle dejavu-lgc-sans-mono-fonts
+rm -f files/mygui/DejaVuLGCSansMono.ttf
+%patch1 -p1
+
+# Unbundle tango icons
+rm -rf files/wizard/icons/
+rm -rf files/launcher/icons/
+%patch2 -p1
 
 %build
 rm -rf build && mkdir build && pushd build
@@ -70,9 +94,15 @@ rm -rf build && mkdir build && pushd build
        -DOPENMW_RESOURCE_FILES=%{_datadir}/%{name}/resources \
        -DMORROWIND_DATA_FILES=%{_datadir}/%{name}/data \
        -DUSE_SYSTEM_TINYXML=TRUE \
+       -DBUILD_UNITTESTS:BOOL=TRUE \
        ../
 
 make %{?_smp_mflags}
+popd
+
+%check
+pushd build
+./openmw_test_suite
 popd
 
 %install
@@ -82,21 +112,18 @@ popd
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw-cs.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw.desktop
 
-#Test and install appdata file
-mkdir %{buildroot}%{_datadir}/appdata/
-install -pDm644 %{SOURCE1} %{buildroot}%{_datadir}/appdata/
+# Test and install appdata file Now supported by upstream
+#install -pDm644 %%{SOURCE1} %%{buildroot}%%{_datadir}/appdata/
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
-# Move license files back so they can be packaged by %%doc
-mkdir _tmpdoc
-mv %{buildroot}%{_datadir}/licenses/openmw/* _tmpdoc/
-rm -rf %{buildroot}%{_datadir}/licenses
+# Remove font license file
+rm -rf "%{buildroot}/%{_datadir}/licenses/%{name}/DejaVu Font License.txt"
 
 # Create data directory
 mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 %files
-%doc docs/license/GPL3.txt README.md _tmpdoc/*
+%doc docs/license/GPL3.txt README.md
 %{_bindir}/%{name}
 %{_bindir}/%{name}-launcher
 %{_bindir}/%{name}-iniimporter
@@ -105,7 +132,7 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 %{_bindir}/%{name}-cs
 %{_bindir}/esmtool
 %{_bindir}/bsatool
-%{_libdir}/Plugin_MyGUI_OpenMW_Resources.so
+# %%{_libdir}/Plugin_MyGUI_OpenMW_Resources.so
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}-cs.desktop
 %{_datadir}/applications/%{name}.desktop
@@ -116,6 +143,17 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Thu Dec 03 2015 Alexandre Moine <nobrakal@gmail.com> 0.37.0-1
+- Update to new upstream.
+- Remove obsolete library ogre (OpenMw now use OpenSceneGrpah).
+- Remove unnecessary patch to compile with fPIC.
+- Remove old bundled library shiny.
+- Fix bad includes for osg-video-player, thanks to Dominik 'Rathann' Mierzejewski.
+- Unbundle dejavu-lgc-sans-mono-fonts.
+- Unbundle Tango icons.
+- Remove intern .appdata, now supported by upstream
+- Add the test suit.
+
 * Thu Aug 13 2015 Alexandre Moine <nobrakal@gmail.com> 0.36.1-4
 - Update the use of -fPIC
 

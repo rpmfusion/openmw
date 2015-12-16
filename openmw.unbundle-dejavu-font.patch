@@ -1,0 +1,23 @@
+diff -r -u openmw-openmw-0.37.0/files/mygui/CMakeLists.txt openmw-openmw-0.37.0-new/files/mygui/CMakeLists.txt
+--- openmw-openmw-0.37.0/files/mygui/CMakeLists.txt	2015-11-22 19:54:17.000000000 +0100
++++ openmw-openmw-0.37.0-new/files/mygui/CMakeLists.txt	2015-12-09 21:08:23.124269072 +0100
+@@ -85,7 +85,6 @@
+     openmw_debug_window.layout
+     openmw_debug_window.skin.xml
+     openmw_jail_screen.layout
+-    DejaVuLGCSansMono.ttf
+     ../launcher/images/openmw.png
+     OpenMWResourcePlugin.xml
+     skins.xml
+diff -r -u openmw-openmw-0.37.0/files/mygui/openmw_font.xml openmw-openmw-0.37.0-new/files/mygui/openmw_font.xml
+--- openmw-openmw-0.37.0/files/mygui/openmw_font.xml	2015-11-22 19:54:17.000000000 +0100
++++ openmw-openmw-0.37.0-new/files/mygui/openmw_font.xml	2015-12-09 21:09:05.005386237 +0100
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <MyGUI type="Resource" version="1.1">
+     <Resource type="ResourceTrueTypeFont" name="MonoFont">
+-        <Property key="Source" value="DejaVuLGCSansMono.ttf"/>
++        <Property key="Source" value="/usr/share/fonts/dejavu/DejaVuLGCSansMono.ttf"/>
+         <Property key="Size" value="17"/>
+         <Property key="Resolution" value="50"/>
+         <Property key="Antialias" value="false"/>

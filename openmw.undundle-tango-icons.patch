@@ -1,0 +1,49 @@
+diff -r -u openmw-openmw-0.37.0-old/files/launcher/launcher.qrc openmw-openmw-0.37.0/files/launcher/launcher.qrc
+--- openmw-openmw-0.37.0-old/files/launcher/launcher.qrc	2015-11-22 19:54:17.000000000 +0100
++++ openmw-openmw-0.37.0/files/launcher/launcher.qrc	2015-12-12 12:15:10.283705557 +0100
+@@ -7,16 +7,16 @@
+     <file alias="openmw-header.png">images/openmw-header.png</file>
+     <file alias="playpage-background.png">images/playpage-background.png</file>
+ </qresource>
+-<qresource prefix="icons/tango">
+-    <file alias="index.theme">icons/tango/index.theme</file>
+-    <file alias="48x48/video-display.png">icons/tango/48x48/video-display.png</file>
+-    <file alias="48x48/preferences-system.png">icons/tango/48x48/preferences-system.png</file>
+-    <file alias="16x16/document-new.png">icons/tango/16x16/document-new.png</file>
+-    <file alias="16x16/edit-copy.png">icons/tango/16x16/edit-copy.png</file>
+-    <file alias="16x16/edit-delete.png">icons/tango/16x16/edit-delete.png</file>
+-    <file alias="16x16/go-bottom.png">icons/tango/16x16/go-bottom.png</file>
+-    <file alias="16x16/go-down.png">icons/tango/16x16/go-down.png</file>
+-    <file alias="16x16/go-top.png">icons/tango/16x16/go-top.png</file>
+-    <file alias="16x16/go-up.png">icons/tango/16x16/go-up.png</file>
++<qresource prefix="/usr/share/icons/Tango">
++    <file alias="index.theme">/usr/share/icons/Tango/index.theme</file>
++    <file alias="48x48/video-display.png">/usr/share/icons/Tango/24x24/devices/video-display.png</file>
++    <file alias="48x48/preferences-system.png">/usr/share/icons/Tango/24x24/categories/preferences-system.png</file>
++    <file alias="16x16/document-new.png">/usr/share/icons/Tango/16x16/actions/document-new.png</file>
++    <file alias="16x16/edit-copy.png">/usr/share/icons/Tango/16x16/actions/edit-copy.png</file>
++    <file alias="16x16/edit-delete.png">/usr/share/icons/Tango/16x16/actions/edit-delete.png</file>
++    <file alias="16x16/go-bottom.png">/usr/share/icons/Tango/16x16/actions/go-bottom.png</file>
++    <file alias="16x16/go-down.png">/usr/share/icons/Tango/16x16/actions/go-down.png</file>
++    <file alias="16x16/go-top.png">/usr/share/icons/Tango/16x16/actions/go-top.png</file>
++    <file alias="16x16/go-up.png">/usr/share/icons/Tango/16x16/actions/go-up.png</file>
+ </qresource>
+ </RCC>
+diff -r -u openmw-openmw-0.37.0-old/files/wizard/wizard.qrc openmw-openmw-0.37.0/files/wizard/wizard.qrc
+--- openmw-openmw-0.37.0-old/files/wizard/wizard.qrc	2015-11-22 19:54:17.000000000 +0100
++++ openmw-openmw-0.37.0/files/wizard/wizard.qrc	2015-12-12 12:15:17.802096728 +0100
+@@ -1,9 +1,9 @@
+ <RCC>
+-  <qresource prefix="icons/tango">
+-    <file alias="48x48/preferences-desktop-locale.png">icons/tango/48x48/preferences-desktop-locale.png</file>
+-    <file alias="index.theme">icons/tango/index.theme</file>
+-    <file alias="48x48/folder.png">icons/tango/48x48/folder.png</file>
+-    <file alias="48x48/system-installer.png">icons/tango/48x48/system-installer.png</file>
++  <qresource prefix="/usr/share/icons/Tango">
++    <file alias="48x48/preferences-desktop-locale.png">/usr/share/icons/Tango/24x24/apps/preferences-desktop-locale.png</file>
++    <file alias="index.theme">/usr/share/icons/Tango/index.theme</file>
++    <file alias="48x48/folder.png">/usr/share/icons/Tango/24x24/places/folder.png</file>
++    <file alias="48x48/system-installer.png">/usr/share/icons/Tango/24x24/apps/system-installer.png</file>
+   </qresource>
+   <qresource prefix="images">
+     <file alias="intropage-background.png">images/intropage-background.png</file>    
