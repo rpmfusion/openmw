@@ -1,5 +1,5 @@
 Name:           openmw
-Version:        0.37.0
+Version:        0.38.0
 Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
@@ -7,7 +7,6 @@ License:        GPLv3 and MIT and zlib
 URL:            https://openmw.org
 # If you use a classic internet browser, Github renames the archive (openmw-%%{version}.tar.gz) into openmw-openmw-%%{version}.tar.gz. So, If you want the sources, use for example wget.
 Source0:        https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
-#Source1:        %{name}.appdata.xml
 
 # Pass path to ffmpeg headers in CFLAGS
 Patch0:         openmw.fix-ffmpeg-includedir.patch
@@ -19,9 +18,9 @@ Patch1:         openmw.unbundle-dejavu-font.patch
 Patch2:         openmw.undundle-tango-icons.patch
 
 BuildRequires:  cmake
-BuildRequires:  boost-devel       
+BuildRequires:  boost-devel
 BuildRequires:  bullet-devel
-BuildRequires:  desktop-file-utils 
+BuildRequires:  desktop-file-utils
 BuildRequires:  libblkid-devel
 BuildRequires:  libmpg123-devel
 BuildRequires:  libsndfile-devel
@@ -65,7 +64,7 @@ to play OpenMW.
 
 
 %prep
-%setup -qn %{name}-%{name}-%{version} 
+%setup -qn %{name}-%{name}-%{version}
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.*
@@ -107,13 +106,12 @@ popd
 
 %install
 pushd build
-%make_install 
+%make_install
 popd
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw-cs.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw.desktop
 
-# Test and install appdata file Now supported by upstream
-#install -pDm644 %%{SOURCE1} %%{buildroot}%%{_datadir}/appdata/
+# Test and install appdata file
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 # Remove font license file
@@ -143,6 +141,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Tue Jan 26 2016 Alexandre Moine <nobrakal@gmail.com> 0.38.0-1
+- New upstream release
+
 * Thu Dec 03 2015 Alexandre Moine <nobrakal@gmail.com> 0.37.0-1
 - Update to new upstream.
 - Remove obsolete library ogre (OpenMw now use OpenSceneGrpah).
