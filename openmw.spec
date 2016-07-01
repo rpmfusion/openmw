@@ -1,5 +1,5 @@
 Name:           openmw
-Version:        0.38.0
+Version:        0.39.0
 Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
@@ -9,13 +9,13 @@ URL:            https://openmw.org
 Source0:        https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
 
 # Pass path to ffmpeg headers in CFLAGS
-Patch0:         openmw.fix-ffmpeg-includedir.patch
+Patch0:         %{name}.fix-ffmpeg-includedir.patch
 
 # Unbundle dejavu-lgc-sans-mono-fonts
-Patch1:         openmw.unbundle-dejavu-font.patch
+Patch1:         %{name}.unbundle-dejavu-font.patch
 
 # Unbundle tango icons
-Patch2:         openmw.undundle-tango-icons.patch
+Patch2:         %{name}.undundle-tango-icons.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -94,6 +94,7 @@ rm -rf build && mkdir build && pushd build
        -DMORROWIND_DATA_FILES=%{_datadir}/%{name}/data \
        -DUSE_SYSTEM_TINYXML=TRUE \
        -DBUILD_UNITTESTS:BOOL=TRUE \
+       -DCMAKE_CXX_STANDARD=11 \
        ../
 
 make %{?_smp_mflags}
@@ -141,6 +142,10 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Tue May 10 2016 Alexandre Moine <nobrakal@gmail.com> 0.39.0-1
+- New upstream release
+- Force the use of c++11 standard
+
 * Tue Jan 26 2016 Alexandre Moine <nobrakal@gmail.com> 0.38.0-1
 - New upstream release
 
