@@ -1,6 +1,6 @@
 Name:           openmw
-Version:        0.39.0
-Release:        2%{?dist}
+Version:        0.40.0
+Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -8,14 +8,11 @@ URL:            https://openmw.org
 # If you use a classic internet browser, Github renames the archive (openmw-%%{version}.tar.gz) into openmw-openmw-%%{version}.tar.gz. So, If you want the sources, use for example wget.
 Source0:        https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
 
-# Pass path to ffmpeg headers in CFLAGS
-Patch0:         %{name}.fix-ffmpeg-includedir.patch
-
 # Unbundle dejavu-lgc-sans-mono-fonts
-Patch1:         %{name}.unbundle-dejavu-font.patch
+Patch0:         %{name}.unbundle-dejavu-font.patch
 
 # Unbundle tango icons
-Patch2:         %{name}.undundle-tango-icons.patch
+Patch1:         %{name}.undundle-tango-icons.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -69,17 +66,14 @@ to play OpenMW.
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.*
 
-# Pass path to ffmpeg headers in CFLAGS
-%patch0 -p1 -b .ffmpeg
-
 # Unbundle dejavu-lgc-sans-mono-fonts
 rm -f files/mygui/DejaVuLGCSansMono.ttf
-%patch1 -p1
+%patch0 -p1
 
 # Unbundle tango icons
 rm -rf files/wizard/icons/
 rm -rf files/launcher/icons/
-%patch2 -p1
+%patch1 -p1
 
 %build
 rm -rf build && mkdir build && pushd build
@@ -142,8 +136,8 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
-* Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 0.39.0-2
-- Rebuilt for ffmpeg-3.1.1
+* Sun Sep 04 2016 Alexandre Moine <nobrakal@gmail.com> 0.40.0-1
+- New upstream release
 
 * Tue May 10 2016 Alexandre Moine <nobrakal@gmail.com> 0.39.0-1
 - New upstream release
