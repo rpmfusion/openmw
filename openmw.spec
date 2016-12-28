@@ -1,5 +1,5 @@
 Name:           openmw
-Version:        0.40.0
+Version:        0.41.0
 Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
@@ -36,7 +36,6 @@ BuildRequires:  unshield-devel
 BuildRequires:  libappstream-glib
 # New requirement as of 0.37.0
 BuildRequires:  OpenSceneGraph-devel OpenSceneGraph-qt-devel
-BuildRequires:  ffmpeg-devel
 BuildRequires:  gtest-devel
 BuildRequires:  tango-icon-theme
 BuildRequires:  dejavu-lgc-sans-mono-fonts
@@ -129,13 +128,17 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}-cs.desktop
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/openmw-cs.png
-%{_datadir}/pixmaps/openmw.png
+%{_datadir}/pixmaps/%{name}-cs.png
+%{_datadir}/pixmaps/%{name}.png
 %{_datadir}/appdata/%{name}.appdata.xml
 %config(noreplace) %{_sysconfdir}/openmw/
 
 
 %changelog
+* Tue Dec 27 2016 Alexandre Moine <nobrakal@gmail.com> 0.41.0-1
+- New upstream release
+- Update appdata.xml
+
 * Sun Sep 04 2016 Alexandre Moine <nobrakal@gmail.com> 0.40.0-1
 - New upstream release
 
