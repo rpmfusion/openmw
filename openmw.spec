@@ -1,6 +1,6 @@
 Name:           openmw
 Version:        0.41.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -13,6 +13,9 @@ Patch0:         %{name}.unbundle-dejavu-font.patch
 
 # Unbundle tango icons
 Patch1:         %{name}.undundle-tango-icons.patch
+
+# Openmw has problems with big indian cpu
+ExcludeArch:    ppc64
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -135,6 +138,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Tue May 02 2017 Alexandre Moine <nobrakal@gmail.com> 0.41.0-4
+- Exclude ppc64
+
 * Sat Apr 29 2017 Leigh Scott <leigh123linux@googlemail.com> - 0.41.0-3
 - Rebuild for ffmpeg update
 
