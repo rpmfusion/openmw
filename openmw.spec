@@ -1,6 +1,6 @@
 Name:           openmw
 Version:        0.41.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -138,6 +138,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Wed Oct 18 2017 Ben Rosser <rosser.bjr@gmail.com> - 0.41.0-7
+- Rebuild against new OpenSceneGraph 3.4.1 due to soname bump.
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 0.41.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
