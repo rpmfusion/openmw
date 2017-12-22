@@ -109,7 +109,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw-cs.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw.desktop
 
 # Test and install appdata file
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
 
 # Remove font license file
 rm -rf "%{buildroot}/%{_datadir}/licenses/%{name}/DejaVu Font License.txt"
@@ -133,7 +133,7 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}-cs.png
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metadata/%{name}.appdata.xml
 %config(noreplace) %{_sysconfdir}/openmw/
 
 
