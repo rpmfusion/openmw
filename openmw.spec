@@ -133,7 +133,7 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}-cs.png
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/metadata/%{name}.appdata.xml
+%{_datadir}/metainfo/%{name}.appdata.xml
 %config(noreplace) %{_sysconfdir}/openmw/
 
 
