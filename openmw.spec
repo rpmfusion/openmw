@@ -1,6 +1,6 @@
 Name:           openmw
 Version:        0.43.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -138,6 +138,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Thu Jan 18 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.43.0-2
+- Rebuilt for ffmpeg-3.5 git
+
 * Fri Dec 22 2017 Ben Rosser <rosser.bjr@gmail.com> - 0.43.0-1
 - Update to latest upstream release.
 
