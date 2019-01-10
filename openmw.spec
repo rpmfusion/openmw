@@ -1,6 +1,6 @@
 Name:           openmw
-Version:        0.43.0
-Release:        5%{?dist}
+Version:        0.44.0
+Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -118,7 +118,8 @@ rm -rf "%{buildroot}/%{_datadir}/licenses/%{name}/DejaVu Font License.txt"
 mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 %files
-%doc docs/license/GPL3.txt README.md
+%license LICENSE
+%doc README.md
 %{_bindir}/%{name}
 %{_bindir}/%{name}-launcher
 %{_bindir}/%{name}-iniimporter
@@ -138,6 +139,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Thu Jan 10 2019 Ben Rosser <rosser.bjr@gmail.com> - 0.44.0-1
+- Update to latest upstream release.
+
 * Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.43.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
