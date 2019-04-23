@@ -1,6 +1,6 @@
 Name:           openmw
-Version:        0.44.0
-Release:        2%{?dist}
+Version:        0.45.0
+Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -40,6 +40,7 @@ BuildRequires:  libappstream-glib
 # New requirement as of 0.37.0
 BuildRequires:  OpenSceneGraph-devel OpenSceneGraph-qt-devel
 BuildRequires:  gtest-devel
+BuildRequires:  gmock-devel
 BuildRequires:  tango-icon-theme
 BuildRequires:  dejavu-lgc-sans-mono-fonts
 
@@ -139,6 +140,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Tue Apr 23 2019 Ben Rosser <rosser.bjr@gmail.com> - 0.45.0-1
+- Updated to latest upstream release, 0.45.
+
 * Mon Mar 04 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.44.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
