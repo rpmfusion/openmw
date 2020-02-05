@@ -1,6 +1,6 @@
 Name:           openmw
 Version:        0.45.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -140,6 +140,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.45.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Wed Aug 07 2019 Leigh Scott <leigh123linux@gmail.com> - 0.45.0-3
 - Rebuild for new ffmpeg version
 
