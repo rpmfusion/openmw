@@ -1,6 +1,6 @@
 Name:           openmw
-Version:        0.45.0
-Release:        6%{?dist}
+Version:        0.46.0
+Release:        1%{?dist}
 Summary:        Unofficial open source engine re-implementation of the game Morrowind
 
 License:        GPLv3 and MIT and zlib
@@ -13,6 +13,9 @@ Patch0:         %{name}.unbundle-dejavu-font.patch
 
 # Unbundle tango icons
 Patch1:         %{name}.undundle-tango-icons.patch
+
+# Fix compilation problem in components/detournavigator/offmeshconnectionsmanager.hpp
+Patch2:          openmw-foreach-offmeshconnectionsmanager.patch
 
 # Openmw has problems with big indian cpu
 ExcludeArch:    ppc64
@@ -78,6 +81,8 @@ rm -rf files/wizard/icons/
 rm -rf files/launcher/icons/
 %patch1 -p1
 
+%patch2 -p1
+
 %build
 rm -rf build && mkdir build && pushd build
 %cmake -DDATADIR:PATH=%{_datadir}/%{name} \
@@ -94,7 +99,7 @@ rm -rf build && mkdir build && pushd build
        -DCMAKE_CXX_STANDARD=11 \
        ../
 
-make %{?_smp_mflags}
+%make_build
 popd
 
 %check
@@ -106,8 +111,8 @@ popd
 pushd build
 %make_install
 popd
-desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw-cs.desktop
-desktop-file-validate %{buildroot}/%{_datadir}/applications/openmw.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/org.openmw.cs.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/org.openmw.launcher.desktop
 
 # Test and install appdata file
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
@@ -129,10 +134,11 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 %{_bindir}/%{name}-cs
 %{_bindir}/esmtool
 %{_bindir}/bsatool
+%{_bindir}/niftest
 # %%{_libdir}/Plugin_MyGUI_OpenMW_Resources.so
 %{_datadir}/%{name}/
-%{_datadir}/applications/%{name}-cs.desktop
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/org.openmw.cs.desktop
+%{_datadir}/applications/org.openmw.launcher.desktop
 %{_datadir}/pixmaps/%{name}-cs.png
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/metainfo/%{name}.appdata.xml
@@ -140,6 +146,9 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 
 
 %changelog
+* Mon Jun 15 2020 Ben Rosser <rosser.bjr@gmail.com> - 0.46.0-1
+- Update to latest upstream release.
+
 * Thu Jun 04 2020 Leigh Scott <leigh123linux@gmail.com> - 0.45.0-6
 - Rebuilt for Boost 1.73
 
