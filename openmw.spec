@@ -1,3 +1,5 @@
+%undefine __cmake_in_source_build
+
 Name:           openmw
 Version:        0.46.0
 Release:        2%{?dist}
@@ -20,7 +22,7 @@ Patch2:          openmw-foreach-offmeshconnectionsmanager.patch
 # Openmw has problems with big indian cpu
 ExcludeArch:    ppc64
 
-BuildRequires:  cmake
+BuildRequires:  cmake3
 BuildRequires:  boost-devel
 BuildRequires:  bullet-devel
 BuildRequires:  desktop-file-utils
@@ -84,8 +86,8 @@ rm -rf files/launcher/icons/
 %patch2 -p1
 
 %build
-rm -rf build && mkdir build && pushd build
-%cmake -DDATADIR:PATH=%{_datadir}/%{name} \
+rm -rf build
+%cmake3 -DDATADIR:PATH=%{_datadir}/%{name} \
        -DLIBDIR=%{_libdir} \
        -DBINDIR=%{_bindir} \
        -DDATAROOTDIR:PATH=%{_datadir} \
@@ -96,21 +98,18 @@ rm -rf build && mkdir build && pushd build
        -DMORROWIND_DATA_FILES=%{_datadir}/%{name}/data \
        -DUSE_SYSTEM_TINYXML=TRUE \
        -DBUILD_UNITTESTS:BOOL=TRUE \
-       -DCMAKE_CXX_STANDARD=11 \
-       ../
+       -DCMAKE_CXX_STANDARD=11
 
-%make_build
-popd
+%cmake3_build
 
 %check
-pushd build
+pushd %{_vpath_builddir}
 ./openmw_test_suite
 popd
 
 %install
-pushd build
-%make_install
-popd
+%cmake3_install
+
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.openmw.cs.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.openmw.launcher.desktop
 
