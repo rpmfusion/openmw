@@ -1,5 +1,9 @@
 %undefine __cmake_in_source_build
 
+%ifarch %{power64}
+%global _lto_cflags %{nil}
+%endif
+
 Name:           openmw
 Version:        0.46.0
 Release:        2%{?dist}
@@ -114,7 +118,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.openmw.cs.deskto
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.openmw.launcher.desktop
 
 # Test and install appdata file
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 # Remove font license file
 rm -rf "%{buildroot}/%{_datadir}/licenses/%{name}/DejaVu Font License.txt"
@@ -140,7 +144,7 @@ mkdir -p %{buildroot}/%{_datadir}/%{name}/data
 %{_datadir}/applications/org.openmw.launcher.desktop
 %{_datadir}/pixmaps/%{name}-cs.png
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_metainfodir}/%{name}.appdata.xml
 %config(noreplace) %{_sysconfdir}/openmw/
 
 
