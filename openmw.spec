@@ -23,6 +23,10 @@ Patch1:         %{name}.undundle-tango-icons.patch
 # Fix compilation problem in components/detournavigator/offmeshconnectionsmanager.hpp
 Patch2:          openmw-foreach-offmeshconnectionsmanager.patch
 
+# Fix armv7hl build issue with 0.46.0.
+# https://gitlab.com/OpenMW/openmw/-/commit/208a50340db5506dded60c05272ce9692773baa9
+Patch3:          https://gitlab.com/OpenMW/openmw/-/commit/208a50340db5506dded60c05272ce9692773baa9.patch
+
 # Openmw has problems with big indian cpu
 ExcludeArch:    ppc64
 
@@ -88,6 +92,9 @@ rm -rf files/launcher/icons/
 %patch1 -p1
 
 %patch2 -p1
+
+# These can probably be replaced with autosetup?
+%patch3 -p1
 
 %build
 rm -rf build
