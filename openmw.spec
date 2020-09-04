@@ -27,6 +27,11 @@ Patch2:          openmw-foreach-offmeshconnectionsmanager.patch
 # https://gitlab.com/OpenMW/openmw/-/commit/208a50340db5506dded60c05272ce9692773baa9
 Patch3:          https://gitlab.com/OpenMW/openmw/-/commit/208a50340db5506dded60c05272ce9692773baa9.patch
 
+# Apply patch to try and fix test failures on aarch64, ppc64le.
+Patch4:          https://gitlab.com/OpenMW/openmw/-/commit/ddab86d94046eab0c0713371990deb04b3f423cc.patch
+# There's at least one additional test broken, fix it.
+Patch5:          openmw-recastmesh-extra-test-epsilon.patch
+
 # Openmw has problems with big indian cpu
 ExcludeArch:    ppc64
 
@@ -95,6 +100,8 @@ rm -rf files/launcher/icons/
 
 # These can probably be replaced with autosetup?
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 rm -rf build
